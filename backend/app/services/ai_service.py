@@ -1,7 +1,7 @@
 """
 AI Service - Handles Gemini API for budget analysis.
 
-Uses Google Gemini (free tier) to generate:
+Uses Google Vertex AI (paid, uses your Google Cloud credits) to generate:
 - Financial advice (1 paragraph)
 - Saving tips (personalized)
 - Personalized saving plan (3-6 months timeline)
@@ -14,21 +14,24 @@ import re
 from typing import Dict, List, Any
 from app.models.budget import BudgetInput
 
-# New Google GenAI SDK
+# Google Cloud Vertex AI SDK
 try:
-    from google import genai
+    import vertexai
+    from vertexai.generative_models import GenerativeModel, GenerationConfig
     GEMINI_AVAILABLE = True
 except ImportError:
     GEMINI_AVAILABLE = False
 
 
-def get_gemini_client() -> "genai.Client":
-    """Get configured Gemini client. Requires GEMINI_API_KEY in env."""
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        raise ValueError("GEMINI_API_KEY environment variable is not set")
-    # The Client handles auth and model calls
-    return genai.Client(api_key=api_key)
+def init_vertex_ai():
+    """Initialize Vertex AI with project and location from environment."""
+    project_id = os.getenv("GOOGLE_CLOUD_PROJECT")
+    location = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
+    
+    if not project_id:
+        raise ValueError("GOOGLE_CLOUD_PROJECT environment variable is not set")
+    
+    vertexai.init(project=project_id, location=location)
 
 
 def build_budget_prompt(budget: BudgetInput) -> str:
@@ -216,23 +219,32 @@ def parse_ai_response(response_text: str, budget: BudgetInput) -> Dict[str, Any]
 
 def analyze_budget(budget: BudgetInput) -> Dict[str, Any]:
     """
-    Analyze budget: calculations in code, narrative from Gemini.
+    Analyze budget: calculations in code, narrative from Gemini via Vertex AI.
     Returns structured result with financial_advice, saving_tips, saving_plan, where_savings_could_go.
     """
     if not GEMINI_AVAILABLE:
+        print("Vertex AI SDK not available, using fallback")
         return generate_fallback_response(budget)
 
     try:
-        client = get_gemini_client()
+        # Initialize Vertex AI
+        init_vertex_ai()
+        
+        # Use gemini-1.5-flash (fast and cheap) or gemini-1.5-pro (better quality)
+        model = GenerativeModel("gemini-1.5-flash")
+        
         prompt = build_budget_prompt(budget)
-        response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=prompt,
-            config={
-                "max_output_tokens": 1500,
-                "temperature": 0.6,
-            },
+        
+        generation_config = GenerationConfig(
+            max_output_tokens=1500,
+            temperature=0.6,
         )
+        
+        response = model.generate_content(
+            prompt,
+            generation_config=generation_config,
+        )
+        
         text = response.text or ""
         return parse_ai_response(text, budget)
     except ValueError as e:
