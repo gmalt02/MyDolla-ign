@@ -214,3 +214,27 @@ After receiving the AI response:
 - API keys are loaded from environment variables only
 - Strict output format helps prevent prompt injection
 - No external URLs or code execution in AI responses
+
+## 10. Predictable Output Design
+
+The AI Budget Tutor is designed to produce consistent and reproducible outputs. For educational evaluation and system testing, it is important that identical financial inputs generate the same explanations, quiz questions, and tips.
+
+To support this goal, the model configuration uses deterministic generation settings. The temperature is set to `0.0`, and the `top_p` value is reduced to `0.1`. These parameters significantly reduce randomness during token selection and help ensure that the model produces stable and predictable responses.
+
+Deterministic responses are especially useful when validating system behavior or demonstrating the tutor during presentations and testing. When the same user financial profile is processed multiple times, the system should return the same grounded reasoning and rule references.
+
+## 11. Rule Traceability
+
+A central design goal of the AI Budget Tutor is transparency in how recommendations are generated. Every explanation, quiz question, and tip is expected to reference one or more predefined financial rules.
+
+This is achieved through the use of rule identifiers such as `R_50_30_20`, `R_HOUSING_COST`, and `R_SAVINGS_BENCHMARKS`. These rule IDs are included directly in the AI response to create a traceable link between the generated advice and the financial guidelines that justify it.
+
+Rule traceability serves two purposes. First, it ensures that the model’s responses remain grounded in documented financial principles rather than unsupported assumptions. Second, it allows developers to verify that the AI output references only valid rules defined in the rule set.
+
+## 12. Educational Design Goals
+
+The AI Budget Tutor is designed primarily as an educational tool for financial literacy. Instead of acting as a financial advisor, the tutor helps users understand how common budgeting guidelines apply to their own financial situation.
+
+Each response produced by the tutor contains three components: a budget explanation, a quiz question, and a practical tip. The explanation interprets the user's financial data, the quiz reinforces a budgeting concept, and the tip provides an actionable suggestion linked to one or more financial rules.
+
+This structure encourages active learning by prompting users to reflect on their spending patterns and budgeting decisions. By connecting explanations and recommendations to clearly defined rules, the tutor helps users understand not only what to change in their budget, but also why those changes are recommended.
