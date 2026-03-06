@@ -214,3 +214,27 @@ After receiving the AI response:
 - API keys are loaded from environment variables only
 - Strict output format helps prevent prompt injection
 - No external URLs or code execution in AI responses
+
+## 10. Consistency of Output Design
+
+The AI Budget Tutor is designed to produce structured and consistent outputs. Each response must follow a fixed JSON format containing a status field, explanation, quiz object, tip object, and used_rule_ids list. This makes the tutor easier to test, validate, and integrate with the rest of the application.
+
+To support more consistent behavior, the model configuration uses a temperature of `0.0` and a `top_p` value of `0.1`. These settings reduce randomness and help the model stay focused on the provided financial data and documented financial rules.
+
+This design is useful during development and evaluation because it makes tutor responses more stable and easier to compare against project requirements.
+
+## 11. Rule Traceability
+
+A key design feature of the AI Budget Tutor is rule traceability. The system includes rule identifiers such as `R_50_30_20`, `R_HOUSING_COST`, `R_SAVINGS_BENCHMARKS`, `R_EMERGENCY_FUND`, and `R_DEBT_WARNING` so that generated guidance can be connected back to documented financial rules.
+
+This is especially important for the tip portion of the response. When the tutor returns a status of `ok`, the `tip.rule_ids` field must contain at least one valid rule ID. In addition, the `used_rule_ids` field provides a summary of the rules referenced in the final response.
+
+Rule traceability helps keep the tutor grounded in the project rule base instead of relying on unsupported financial advice. It also makes validation easier because developers can check whether referenced rule IDs match the rules loaded by the system.
+
+## 12. Educational Purpose
+
+The AI Budget Tutor is designed as an educational budgeting tool for a student project. Its purpose is to help users better understand their income, expenses, and financial goals using grounded financial rules and their own budget data.
+
+The response structure supports this goal by including an explanation, a quiz question, and a practical tip. The explanation interprets the user's financial data, the quiz reinforces a budgeting concept, and the tip provides an actionable suggestion linked to one or more financial rules.
+
+By grounding responses in user data and rule-based guidance, the tutor supports financial literacy while staying within the limited scope defined by the project.
