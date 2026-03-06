@@ -131,6 +131,12 @@ Open http://localhost:3000 in your browser.
 | Spike Results | Complete |
 | Architecture Diagram | Complete |
 
+## Demo Video
+
+Watch the AI Budget Tutor generate grounded financial advice.
+
+https://youtu.be/G4ZdeZaZjmY
+
 ## License
 
 This project is licensed under the Apache License 2.0.
