@@ -3,27 +3,69 @@
 
 This guide covers how to record the 5 to 8 minute technical walkthrough video for Milestone 1.
 
-## Setup
+## First Time Setup
 
-### Step 1: Open Terminal and Navigate to Backend
+If this is your first time running the project, follow these steps:
+
+### 1. Clone the Repository
 
 ```bash
-cd /Users/kitten/Documents/GitHub/MyDolla-Sign/backend
+git clone https://github.com/YOUR_USERNAME/MyDolla-Sign.git
+cd MyDolla-Sign
 ```
 
-### Step 2: Activate Virtual Environment
+### 2. Create Python Virtual Environment
 
 ```bash
+cd backend
+python3 -m venv venv
 source venv/bin/activate
 ```
 
-### Step 3: Verify Setup
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Set Up Environment Variables
+
+```bash
+cp .env.example .env
+```
+
+Then edit the `.env` file and add the Gemini API key:
+
+```
+GEMINI_API_KEY=your-api-key-here
+```
+
+To get an API key:
+1. Go to https://aistudio.google.com/apikey
+2. Sign in with your Google account
+3. Click Create API Key
+4. Copy the key and paste it in your .env file
+
+### 5. Verify Setup
 
 ```bash
 python test_tutor.py
 ```
 
 If this runs successfully and shows "Status: ok", you are ready.
+
+## Requirements
+
+- Python 3.10 or higher
+- Internet connection (to call Gemini API)
+
+## Quick Start (If Already Set Up)
+
+```bash
+cd backend
+source venv/bin/activate
+python demo.py
+```
 
 ## Video Structure (5 to 8 minutes)
 
@@ -211,7 +253,7 @@ grounded tutoring logic. Thank you."
 ### Commands
 
 ```bash
-cd /Users/kitten/Documents/GitHub/MyDolla-Sign/backend
+cd backend
 source venv/bin/activate
 python demo.py
 ```
