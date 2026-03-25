@@ -22,7 +22,7 @@ Sprint 1 then asked for a minimal UI with:
 - one quiz question
 - one financial tip
 
-Milestone 2 is different. By April 1, 2026, you must demonstrate a working MVP, not just documentation or isolated backend pieces.
+Milestone 2 is different. By April 5, 2026, you must demonstrate a working MVP, not just documentation or isolated backend pieces.
 
 ---
 
