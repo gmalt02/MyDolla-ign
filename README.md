@@ -17,10 +17,12 @@ Many people struggle to budget and save due to a lack of accessible, trustworthy
 
 ## MVP Features (Milestone 2)
 
-1. **Budget form:** Monthly income, categorized expenses, goal.
-2. **Analyze:** Single API path `POST /api/analyze` (JSON).
-3. **Results in the UI:** Grounded explanation (uses your numbers), **one** quiz question, **one** rule-grounded tip (see `docs/financial_rules.md`), optional category breakdown, disclaimer, and **output source** (Vertex AI vs deterministic fallback).
-4. **Safe fallback:** If Vertex AI is unavailable or misconfigured, the backend returns a full structured response from deterministic logic so the demo still works.
+1. **Budget form:** Monthly income, categorized expenses, and a budgeting goal.
+2. **Analyze:** The frontend submits the budget payload to `POST /api/analyze`.
+3. **Quiz-first learning flow:** After Analyze returns, the UI shows a quiz question tied to the submitted budget before revealing the full write-up.
+4. **Grading step:** The learner submits a response to `POST /api/grade-quiz`, which returns a grader verdict (`correct`, `partially correct`, or `incorrect`) plus feedback and an answer key.
+5. **Grounded results:** After grading, the UI reveals a grounded explanation that references the user's numbers and a rule-grounded financial tip.
+6. **Safe fallback:** If a live AI path is unavailable or misconfigured, the backend returns deterministic fallback content so the browser demo still works safely.
 
 ## Tech Stack
 
@@ -62,6 +64,18 @@ MyDolla-Sign/
 ```
 
 ## How to Run
+## Milestone 2 User Flow
+
+1. Enter monthly income, expenses, and a goal.
+2. Click **Analyze**.
+3. Review the generated quiz question.
+4. Submit a short answer for grading.
+5. Review the grader verdict and answer key.
+6. Continue to the grounded explanation and financial tip.
+
+This flow is implemented through:
+- `POST /api/analyze`
+- `POST /api/grade-quiz`
 
 ### Prerequisites
 - Python 3.10+ (backend)
