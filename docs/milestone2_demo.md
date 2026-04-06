@@ -97,7 +97,7 @@ Use any **one** of these during the live demo:
 
 ---
 
-## Demo video (4–7 minutes)
+## Demo video (3–7 minutes)
 
 **Option A — file in repo:** Record your screen and save as:
 
@@ -105,6 +105,6 @@ Use any **one** of these during the live demo:
 
 **Option B — external link:** Upload to your course drive or YouTube (unlisted), then add the link here:
 
-- **Demo video URL:** _[add your link when ready]_
+- **Demo video URL:** https://youtu.be/-24v4-w1RqQ
 
 The recording should show: successful analysis in the browser, where explanation / quiz / tip appear, one fallback or refusal case, and a short verbal note on what is **AI** vs **deterministic code**.
