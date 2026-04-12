@@ -1,6 +1,3 @@
-// Teammate task (UI polish): refine spacing, type scale, and mobile layout for this flow
-// (quiz, verdict, answer key, explanation). Keep accessibility for the textarea and buttons.
-
 import { useState, useEffect } from 'react'
 import WhatIfPanel from './WhatIfPanel'
 
@@ -42,9 +39,20 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
     breakdown,
     goal,
     output_source,
+    saving_plan,
   } = results
 
   const explanation = financial_advice || analysis
+
+  const savingPlanItems =
+    Array.isArray(saving_plan) && saving_plan.length > 0
+      ? saving_plan
+      : [
+          'Month 1: Set aside a fixed amount from each paycheck.',
+          'Month 2: Reduce one flexible category and move that money to savings.',
+          'Month 3: Build toward an emergency fund and review progress.',
+        ]
+
   const income = monthlyIncome || 0
 
   const goalLabels = {
@@ -79,22 +87,27 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
   const submitForGrading = async () => {
     const trimmed = answerDraft.trim()
     if (!trimmed || !quiz_question) return
+
     setGradeError(null)
     setIsGrading(true)
+
     try {
       const response = await fetch('/api/grade-quiz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          quiz_question: quiz_question,
+          quiz_question,
           quiz_answer_key: quiz_answer_key || '',
           user_answer: trimmed,
         }),
       })
+
       const data = await response.json().catch(() => ({}))
+
       if (!response.ok) {
         throw new Error(data.message || 'Grading request failed')
       }
+
       setGradeResult({
         verdict: data.verdict || 'PARTIALLY CORRECT',
         feedback: data.feedback || '',
@@ -168,6 +181,7 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
             <p className="text-slate-800 leading-relaxed rounded-lg border border-emerald-100 bg-emerald-50/60 p-4">
               {quiz_question}
             </p>
+
             <div>
               <label htmlFor="quiz-answer" className="block text-sm font-medium text-slate-700 mb-1">
                 Your answer
@@ -179,22 +193,21 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
                 rows={4}
                 disabled={isGrading}
                 placeholder="Write a short answer. It will be graded before you see the tutor explanation and tip."
-                className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900
-                           focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/30 outline-none resize-y
-                           disabled:bg-slate-100 disabled:text-slate-500"
+                className="w-full border border-slate-300 rounded-md px-3 py-2 text-sm text-slate-900 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-500/30 outline-none resize-y disabled:bg-slate-100 disabled:text-slate-500"
               />
             </div>
+
             {gradeError && (
               <p className="text-sm text-red-700" role="alert">
                 {gradeError}
               </p>
             )}
+
             <button
               type="button"
               disabled={!answerDraft.trim() || isGrading}
               onClick={submitForGrading}
-              className="w-full sm:w-auto bg-emerald-700 hover:bg-emerald-800 disabled:bg-slate-400 disabled:cursor-not-allowed
-                         text-white font-medium py-2.5 px-5 rounded-md transition-colors"
+              className="w-full sm:w-auto bg-emerald-700 hover:bg-emerald-800 disabled:bg-slate-400 disabled:cursor-not-allowed text-white font-medium py-2.5 px-5 rounded-md transition-colors"
             >
               {isGrading ? 'Grading…' : 'Submit for grading'}
             </button>
@@ -210,17 +223,18 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
               >
                 Grader result
               </h3>
-              <div
-                className={`rounded-lg border p-4 ${verdictStyles(gradeResult.verdict)}`}
-              >
+
+              <div className={`rounded-lg border p-4 ${verdictStyles(gradeResult.verdict)}`}>
                 <p className="text-sm font-semibold text-slate-900">
                   Verdict: {gradeResult.verdict}
                 </p>
+
                 {gradeResult.output_source && (
                   <p className="text-xs text-slate-600 mt-1">
                     Grader source: {gradeResult.output_source}
                   </p>
                 )}
+
                 <p className="text-sm text-slate-800 mt-3 leading-relaxed whitespace-pre-wrap">
                   {gradeResult.feedback}
                 </p>
@@ -277,6 +291,36 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
               </section>
             )}
 
+            {savingPlanItems.length > 0 && (
+              <section aria-labelledby="saving-plan-heading">
+                <h3
+                  id="saving-plan-heading"
+                  className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2"
+                >
+                  Saving plan
+                </h3>
+
+                <div className="border border-blue-100 rounded-lg p-4 bg-blue-50/50 space-y-3">
+                  {savingPlanItems.map((step, index) => (
+                    <div key={index} className="flex gap-3">
+                      <div className="flex flex-col items-center">
+                        <div className="w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-semibold flex items-center justify-center">
+                          {index + 1}
+                        </div>
+                        {index !== savingPlanItems.length - 1 && (
+                          <div className="w-px flex-1 bg-blue-200 mt-2" />
+                        )}
+                      </div>
+
+                      <p className="text-slate-800 leading-relaxed pt-1">
+                        {typeof step === 'string' ? step : JSON.stringify(step)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {grounded_tip && (
               <section aria-labelledby="tip-heading">
                 <h3
@@ -288,6 +332,7 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
                 <p className="text-slate-800 leading-relaxed border border-emerald-100 rounded-lg p-4 bg-emerald-50/60">
                   {grounded_tip}
                 </p>
+
                 {grounded_rule_citation && (
                   <p className="text-xs text-slate-500 mt-2">
                     Rule touchpoints: {grounded_rule_citation}
