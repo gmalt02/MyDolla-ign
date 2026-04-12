@@ -23,6 +23,10 @@ Many people struggle to budget and save due to a lack of accessible, trustworthy
 4. **Grading step:** The learner submits a response to `POST /api/grade-quiz`, which returns a grader verdict (`correct`, `partially correct`, or `incorrect`) plus feedback and an answer key.
 5. **Grounded results:** After grading, the UI reveals a grounded explanation that references the user's numbers and a rule-grounded financial tip.
 6. **Safe fallback:** If a live AI path is unavailable or misconfigured, the backend returns deterministic fallback content so the browser demo still works safely.
+### Saving Plan Feature
+- Displays a multi-month saving plan based on AI analysis
+- Includes fallback plan when AI response is unavailable
+- Rendered as a timeline-style UI for clarity and readability
 
 ## Tech Stack
 
