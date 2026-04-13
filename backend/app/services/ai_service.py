@@ -65,9 +65,9 @@ def _studio_generation_config():
     if not GENAI_STUDIO_AVAILABLE or genai is None:
         return None
     try:
-        return genai.GenerationConfig(max_output_tokens=1500, temperature=0.6)
+        return genai.GenerationConfig(max_output_tokens=2500, temperature=0.6)
     except Exception:
-        return {"max_output_tokens": 1500, "temperature": 0.6}
+        return {"max_output_tokens": 2500, "temperature": 0.6}
 
 
 def _extract_google_generativeai_text(response) -> str:
@@ -490,11 +490,11 @@ def _call_grader_llm(prompt: str) -> tuple[str, str]:
             model = genai.GenerativeModel(model_name)
             try:
                 gen_cfg = genai.GenerationConfig(
-                    max_output_tokens=400,
+                    max_output_tokens=2000,
                     temperature=0.25,
                 )
             except Exception:
-                gen_cfg = {"max_output_tokens": 400, "temperature": 0.25}
+                gen_cfg = {"max_output_tokens": 2000, "temperature": 0.25}
             response = model.generate_content(prompt, generation_config=gen_cfg)
             text = _extract_google_generativeai_text(response)
             if text:
@@ -507,7 +507,7 @@ def _call_grader_llm(prompt: str) -> tuple[str, str]:
             init_vertex_ai()
             model = VertexGenerativeModel("gemini-1.5-flash")
             generation_config = VertexGenerationConfig(
-                max_output_tokens=400,
+                max_output_tokens=2000,
                 temperature=0.25,
             )
             response = model.generate_content(prompt, generation_config=generation_config)

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import WhatIfPanel from './WhatIfPanel'
+import BudgetComparison from './BudgetComparison'
 
 function verdictStyles(verdict) {
   const v = (verdict || '').toUpperCase()
@@ -134,7 +135,50 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
             </span>
           )}
         </p>
-        <p className="text-xs text-slate-500 mt-2">{stepLine}</p>
+
+        {/* Step Progress Indicator */}
+        <div className="flex items-center justify-center gap-1 sm:gap-2 mt-4">
+          {['quiz', 'feedback', 'revealed'].map((step, idx) => {
+            const stepLabels = ['Quiz', 'Grading', 'Results']
+            const isActive = phase === step
+            const isCompleted =
+              (step === 'quiz' && (phase === 'feedback' || phase === 'revealed')) ||
+              (step === 'feedback' && phase === 'revealed')
+
+            return (
+              <div key={step} className="flex items-center">
+                <div className="flex flex-col items-center">
+                  <div
+                    className={`
+                      step-indicator w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300
+                      ${isActive ? 'bg-emerald-600 text-white scale-110 animate-pulse-glow' : ''}
+                      ${isCompleted ? 'bg-emerald-500 text-white' : ''}
+                      ${!isActive && !isCompleted ? 'bg-slate-200 text-slate-500' : ''}
+                    `}
+                  >
+                    {isCompleted ? (
+                      <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    ) : (
+                      idx + 1
+                    )}
+                  </div>
+                  <span className={`text-[10px] sm:text-xs mt-1 ${isActive ? 'text-emerald-700 font-medium' : 'text-slate-500'}`}>
+                    {stepLabels[idx]}
+                  </span>
+                </div>
+                {idx < 2 && (
+                  <div
+                    className={`w-6 sm:w-12 h-0.5 mx-1 sm:mx-2 transition-colors duration-300 ${
+                      isCompleted ? 'bg-emerald-400' : 'bg-slate-200'
+                    }`}
+                  />
+                )}
+              </div>
+            )
+          })}
+        </div>
       </div>
 
       <div className="p-5 md:p-6 space-y-6">
@@ -170,8 +214,14 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
           </section>
         )}
 
+        {breakdown && breakdown.length > 0 && income > 0 && (
+          <section aria-labelledby="comparison-heading">
+            <BudgetComparison breakdown={breakdown} monthlyIncome={income} />
+          </section>
+        )}
+
         {phase === 'quiz' && quiz_question && (
-          <section aria-labelledby="quiz-heading" className="space-y-4">
+          <section aria-labelledby="quiz-heading" className="space-y-4 animate-fade-slide-in">
             <h3
               id="quiz-heading"
               className="text-xs font-semibold uppercase tracking-wide text-slate-500"
@@ -215,7 +265,7 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
         )}
 
         {phase === 'feedback' && gradeResult && (
-          <>
+          <div className="animate-fade-slide-in space-y-6">
             <section aria-labelledby="verdict-heading" className="space-y-3">
               <h3
                 id="verdict-heading"
@@ -272,11 +322,11 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
             >
               Continue to explanation and tip
             </button>
-          </>
+          </div>
         )}
 
         {phase === 'revealed' && (
-          <>
+          <div className="animate-fade-slide-in space-y-6">
             {explanation && (
               <section aria-labelledby="explanation-heading">
                 <h3
@@ -354,7 +404,7 @@ function BudgetResults({ results, monthlyIncome, budgetPayload, onReanalyze, isR
                 Back to quiz
               </button>
             )}
-          </>
+          </div>
         )}
 
         <p className="text-xs text-slate-500 border-t border-slate-100 pt-4">
