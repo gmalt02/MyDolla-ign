@@ -63,7 +63,7 @@ function BudgetComparison({ breakdown, monthlyIncome }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-1">
         <h3 className="text-sm font-semibold text-slate-700">
           50/30/20 Rule Comparison
         </h3>
