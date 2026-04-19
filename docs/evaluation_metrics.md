@@ -31,7 +31,8 @@ Evaluate how well the system produces grounded, relevant, and rule-based outputs
 
 ---
 
-## Summary (fill later)
-- Grounding Accuracy: 
-- Quiz Relevance: 
-- Tip Mapping:
+## Summary
+
+- Grounding Accuracy: High — outputs use real numbers from user inputs
+- Quiz Relevance: High — quiz questions align with budget scenario
+- Tip Mapping: Medium — tips are generally aligned with rules but could be more explicit
