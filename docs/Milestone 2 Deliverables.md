@@ -191,4 +191,4 @@ Be ready to answer:
 - [x] README is updated and accurate
 - [x] `.env.example` is present
 - [x] `/docs/milestone2_demo.md` is present
-- [ ] Demo video is submitted or linked (add `docs/milestone2_demo.mp4` or URL in `milestone2_demo.md`)
+- [x] Demo video is submitted or linked (add `docs/milestone2_demo.mp4` or URL in `milestone2_demo.md`)
