@@ -28,6 +28,15 @@ Many people struggle to budget and save due to a lack of accessible, trustworthy
 - Includes fallback plan when AI response is unavailable
 - Rendered as a timeline-style UI for clarity and readability
 
+## Sprint 2 Features
+
+- Quiz-first learning flow with grading feedback
+- AI-powered financial explanations (Gemini) with deterministic fallback
+- 50/30/20 rule comparison visualization
+- Expense breakdown pie chart
+- “What-if” scenario tool for adjusting budget categories
+- Multi-month saving plan generation
+- Grounded explanations using user specific financial data
 ## Tech Stack
 
 - Frontend: React.js with Tailwind CSS (Vite)
