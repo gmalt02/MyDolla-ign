@@ -21,17 +21,22 @@ const renderCustomizedLabel = ({
   outerRadius,
   percent,
 }) => {
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5
+  // Move label a little closer to the center of the slice
+  // so it looks more visually centered and avoids edge crowding.
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.42
   const x = cx + radius * Math.cos(-midAngle * RADIAN)
   const y = cy + radius * Math.sin(-midAngle * RADIAN)
+
+  // Hide tiny labels so they do not overlap or look awkward
+  if (percent < 0.06) return null
 
   return (
     <text
       x={x}
       y={y}
       fill="white"
-      textAnchor={x > cx ? 'start' : 'end'}
-      dominantBaseline="central"
+      textAnchor="middle"
+      dominantBaseline="middle"
       className="text-xs font-semibold"
     >
       {`${(percent * 100).toFixed(0)}%`}
@@ -95,6 +100,7 @@ function ExpensePieChart({ breakdown, monthlyIncome }) {
               />
             ))}
           </Pie>
+
           <Tooltip
             content={({ active, payload }) => {
               if (active && payload && payload.length) {
@@ -114,10 +120,11 @@ function ExpensePieChart({ breakdown, monthlyIncome }) {
               return null
             }}
           />
+
           <Legend
             verticalAlign="bottom"
             height={36}
-            formatter={(value, entry) => (
+            formatter={(value) => (
               <span className="text-slate-700 text-sm font-medium">
                 {value}
               </span>
