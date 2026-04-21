@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Header from './components/Header'
 import BudgetForm from './components/BudgetForm'
 import BudgetResults from './components/BudgetResults'
+import Toast from './components/Toast'
 import { normalizeBudgetPayload } from './utils/budgetPayload'
 
 function App() {
@@ -83,14 +84,10 @@ function App() {
           </div>
         )}
 
-        {error && (
-          <div
-            className="mb-6 rounded-lg border border-red-800/60 bg-red-950/40 px-4 py-3 text-sm text-red-100"
-            role="alert"
-          >
-            <strong className="text-red-200">Could not complete analysis:</strong> {error}
-          </div>
-        )}
+        <Toast
+          message={error ? `Could not complete analysis: ${error}` : null}
+          onDismiss={() => setError(null)}
+        />
 
         {analysisResult && (
           <section className="mb-10 w-full min-w-0">

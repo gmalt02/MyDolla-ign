@@ -17,6 +17,7 @@
  */
 
 import { useState } from 'react'
+import Toast from './Toast'
 
 function GlossaryAIInput({ term, onExplain, isLoading, customPrompt }) {
   const [showInput, setShowInput] = useState(false)
@@ -185,17 +186,14 @@ function InvestmentGlossary() {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 md:p-8" id="glossary">
+    <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 relative" id="glossary">
+      <Toast message={error} onDismiss={() => setError(null)} />
       <h2 className="text-2xl font-bold text-gray-900 mb-2">
         Investment Literacy Glossary
       </h2>
       <p className="text-gray-600 mb-2">
         Learn essential financial terms in simple, easy-to-understand language.
       </p>
-      {error && (
-        <p className="text-sm text-red-600 mb-4">AI explanation error: {error}</p>
-      )}
-
       {/* Search Bar */}
       <div className="mb-6">
         <input
