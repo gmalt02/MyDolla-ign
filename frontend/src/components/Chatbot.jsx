@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Toast from './Toast'
 
 function Chatbot({ context }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -42,6 +43,7 @@ function Chatbot({ context }) {
 
   return (
     <div className="fixed bottom-4 right-4 z-40">
+      <Toast message={error} onDismiss={() => setError(null)} />
       {/* Toggle button */}
       {!isOpen && (
         <button
@@ -104,9 +106,6 @@ function Chatbot({ context }) {
             ))}
             {isSending && (
               <p className="text-xs text-slate-400">DollaBot is thinking…</p>
-            )}
-            {error && (
-              <p className="text-xs text-red-400">Error: {error}</p>
             )}
           </div>
 
