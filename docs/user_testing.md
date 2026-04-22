@@ -3,7 +3,10 @@
 **Owners:** Gauge + Hugo  
 **Sprint goal:** Document feedback from **3–5** testers who are **not** on the core team (other CSCI students are fine).
 
-**Sprint 3 progress:** **1 / 3+** testers documented here. **Tester 1 — Andrew G.** (recruited by Hugo) is complete below. **Gauge** is handling recruitment for **at least two more** sessions so the team meets the “3+ non-team testers” definition of done.
+**Sprint 3 progress:** **3 / 3+** testers documented here. Requirement satisfied.  
+Tester 1 (Andrew G.) — Hugo  
+Tester 2 (Olivia G.) — Gauge  
+Tester 3 (Derek M.) — Gauge
 
 This file has two layers:
 
@@ -26,7 +29,7 @@ Use **one tester record per session** (copy the template section as needed).
 ## Recruitment checklist
 
 - [x] First tester session completed (**Andrew G.**, Hugo recruiting).  
-- [ ] **Gauge:** schedule **2+** additional testers (need **3+** total non-team).  
+- [x] **Gauge:** completed 2 additional testers (Olivia G., Derek M.) 
 - [ ] Share how to run the app (local URL, tunnel, or lab machine) and that numbers can be approximate.  
 - [ ] Ask testers to use **their own rough budget** or realistic placeholders.
 
@@ -166,204 +169,99 @@ I think the savings and the "other" part can be structured different, it didn't 
 
 ---
 
-## Completed sessions — Tester 2
+## Completed sessions — Tester 2 — Olivia G.
 
 ### Tester metadata
 
 | Field | Value |
 |--------|--------|
-| Tester ID or initials | |
-| Date | |
-| Mode | |
+| Tester ID or initials | OG |
+| Date | April 21, 2026 |
+| Mode | In person |
 
 ### Quick stats
 
 | | |
 |--|--|
-| Time (minutes) | |
-| All 3 steps? | |
-| What-if / 50/30/20? | |
+| Time (minutes) | ~10 |
+| All 3 steps? | Y |
+| What-if / 50/30/20? | Y |
 
 ### Ratings
 
 | Statement | Score (1–5) |
 |-----------|-------------|
-| Quiz-before-explanation was clear | |
-| Step 2 vs Step 3 was clear | |
-| Numbers felt grounded in my inputs | |
-| Would use again | |
+| Quiz-before-explanation was clear | 5 |
+| Step 2 vs Step 3 was clear | 4 |
+| Numbers felt grounded in my inputs | 4 |
+| Would use again | 4 |
 
 ### Open feedback
 
 **What worked well**
 
-
-
+Pie chart and visuals helped to understand.
 
 **Friction / bugs**
 
-
-
+Page required a lot of scrolling/ lots of information.
 
 **One improvement**
 
-
-
+Make some sections collapsible.
 
 **Notes / quotes**
 
+“Pretty easy to use and understand.”
 
 
 
 ---
 
-## Completed sessions — Tester 3
+## Completed sessions — Tester 3 — Derek M.
 
 ### Tester metadata
 
 | Field | Value |
 |--------|--------|
-| Tester ID or initials | |
-| Date | |
-| Mode | |
+| Tester ID or initials | DM |
+| Date | April 21, 2026 |
+| Mode | Zoom call |
 
 ### Quick stats
 
 | | |
 |--|--|
-| Time (minutes) | |
-| All 3 steps? | |
-| What-if / 50/30/20? | |
+| Time (minutes) | ~15 |
+| All 3 steps? | Y |
+| What-if / 50/30/20? | Y |
 
 ### Ratings
 
 | Statement | Score (1–5) |
 |-----------|-------------|
-| Quiz-before-explanation was clear | |
-| Step 2 vs Step 3 was clear | |
-| Numbers felt grounded in my inputs | |
-| Would use again | |
+| Quiz-before-explanation was clear | 4 |
+| Step 2 vs Step 3 was clear | 3 |
+| Numbers felt grounded in my inputs | 4 |
+| Would use again | 4 |
 
 ### Open feedback
 
 **What worked well**
 
-
-
-
-**Friction / bugs**
-
-
-
-
-**One improvement**
-
-
-
-
-**Notes / quotes**
-
-
-
-
----
-
-## Completed sessions — Tester 4 (optional)
-
-### Tester metadata
-
-| Field | Value |
-|--------|--------|
-| Tester ID or initials | |
-| Date | |
-| Mode | |
-
-### Quick stats
-
-| | |
-|--|--|
-| Time (minutes) | |
-| All 3 steps? | |
-| What-if / 50/30/20? | |
-
-### Ratings
-
-| Statement | Score (1–5) |
-|-----------|-------------|
-| Quiz-before-explanation was clear | |
-| Step 2 vs Step 3 was clear | |
-| Numbers felt grounded in my inputs | |
-| Would use again | |
-
-### Open feedback
-
-**What worked well**
-
-
-
+Explanations were clear/accurate.
 
 **Friction / bugs**
 
-
-
-
-**One improvement**
-
-
-
-
-**Notes / quotes**
-
-
-
-
----
-
-## Completed sessions — Tester 5 (optional)
-
-### Tester metadata
-
-| Field | Value |
-|--------|--------|
-| Tester ID or initials | |
-| Date | |
-| Mode | |
-
-### Quick stats
-
-| | |
-|--|--|
-| Time (minutes) | |
-| All 3 steps? | |
-| What-if / 50/30/20? | |
-
-### Ratings
-
-| Statement | Score (1–5) |
-|-----------|-------------|
-| Quiz-before-explanation was clear | |
-| Step 2 vs Step 3 was clear | |
-| Numbers felt grounded in my inputs | |
-| Would use again | |
-
-### Open feedback
-
-**What worked well**
-
-
-
-
-**Friction / bugs**
-
-
-
+Slight confusion with quiz.
 
 **One improvement**
 
-
-
+Add clearer instructions before quiz begins.
 
 **Notes / quotes**
+
+“Good idea, definitely on the right path.”
 
 
 
@@ -374,7 +272,7 @@ I think the savings and the "other" part can be structured different, it didn't 
 
 Fill this once you have **at least three** completed testers.
 
-### Interim notes — only Tester 1 so far
+### Interim notes — after 1 tester (Andrew G.)
 
 **Top strengths (Andrew G.)**
 
@@ -386,7 +284,23 @@ Page/layout feels long or dense; “savings” vs “other” labeling was uncle
 
 **Must-fix before final demo (April 29)**
 
-Revisit layout density and category labeling **after** Gauge’s testers confirm.
+Address layout density by improving spacing or reducing scroll length. Add clearer instructions or guidance before the quiz begins. Revisit category labeling (savings vs “other”) to improve clarity based on consistent tester feedback.
+
+---
+
+### Additional notes — Gauge’s testers (Olivia G., Derek M.)
+
+**Top strengths (Olivia G., Derek M.)**
+
+Both testers found the pie chart and visual breakdown helpful for understanding their spending. They also noted that the explanations were clear and easy to follow, and the results felt relevant to the inputs they provided.
+
+**Top problems or risks (Olivia G., Derek M.)**
+
+Both testers mentioned that the page feels long and requires a lot of scrolling. Derek M. noted some confusion between the quiz step and transitioning into results. Olivia G. also suggested that the layout could be more compact.
+
+**Must-fix before final demo (April 29)**
+
+Based on additional tester feedback, improve layout spacing to reduce scrolling, add clearer instructions before the quiz step, and refine category labeling (especially savings vs “other”) for better clarity.
 
 ---
 
