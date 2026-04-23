@@ -15,13 +15,17 @@ Usage (from repo root):
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app.models.budget import BudgetInput  # noqa: E402
-from app.services.ai_service import analyze_budget  # noqa: E402
+from app.services.ai_service import (  # noqa: E402
+    GEMINI_AVAILABLE,
+    analyze_budget,
+)
 
 
 def scenarios():
@@ -109,7 +113,47 @@ def slim(out: dict) -> dict:
     return {k: out.get(k) for k in keys}
 
 
+def _print_preflight() -> None:
+    """Explain why runs may be fallback (reduces confusion vs the doc's AI column)."""
+    lines = [
+        "",
+        "=" * 72,
+        "SPRINT 3 — AI column capture (`sprint3_capture_ai_column.py`)",
+        "=" * 72,
+    ]
+    if not GEMINI_AVAILABLE:
+        lines += [
+            "STATUS: No Gemini client library is importable.",
+            "  → Install:  pip install google-generativeai",
+            "  → Then set GEMINI_API_KEY in backend/.env (Google AI Studio key).",
+            "  → Output below will be fallback_deterministic — same as the LEFT column",
+            "    in docs/fallback_quality_assessment.md. Do NOT paste it into the AI fence.",
+        ]
+    elif not os.getenv("GEMINI_API_KEY", "").strip():
+        lines += [
+            "STATUS: SDK present but GEMINI_API_KEY is empty.",
+            "  → Add your key to backend/.env and re-run.",
+            "  → Output will stay fallback until the key is set.",
+        ]
+    else:
+        lines += [
+            "STATUS: GEMINI_API_KEY is set and a Gemini SDK is available.",
+            "  → Expect output_source: google_ai_studio below (unless the API errors).",
+        ]
+    lines += [
+        "",
+        "Note: 'python-dotenv could not parse line 1' means fix line 1 of backend/.env",
+        "(valid KEY=value or # comment; avoid BOM / odd characters).",
+        "",
+        "=" * 72,
+        "",
+    ]
+    # stdout so Windows terminals show this before JSON (stderr order is often confusing)
+    print("\n".join(lines))
+
+
 def main() -> None:
+    _print_preflight()
     print("<!-- Paste under each scenario's **Google AI Studio** fence in docs/fallback_quality_assessment.md -->\n")
     for title, budget in scenarios():
         out = analyze_budget(budget)
@@ -118,9 +162,8 @@ def main() -> None:
         print(f"`output_source`: `{src}`\n")
         if src != "google_ai_studio":
             print(
-                "_This run did not use Google AI Studio._ "
-                "Unset `GOOGLE_CLOUD_PROJECT`, set `GEMINI_API_KEY` in `backend/.env`, "
-                "and install `google-generativeai`, then re-run.\n"
+                "_Not the AI column — this run used fallback (see STATUS block above). "
+                "Fix install/key, then re-run._\n"
             )
         block = json.dumps(slim(out), indent=2, ensure_ascii=False)
         print("```json")

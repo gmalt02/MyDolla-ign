@@ -13,6 +13,8 @@ python scripts/sprint3_capture_ai_column.py
 
 Paste each printed JSON block into the matching **Google AI Studio** fence below (replace the placeholder). The script labels `output_source`; only captures with `google_ai_studio` count as the live model path.
 
+**Reading the script output:** If every block shows `output_source: fallback_deterministic` and the terminal said **No Gemini SDK installed**, Python is not using the `google-generativeai` package in *this* environment (`pip install google-generativeai` inside your venv, then re-run). If the SDK is installed but the key is missing, you get the same fallback. In both cases the printed JSON **duplicates the deterministic column** in this doc — **do not** paste it into the AI side.
+
 The **Deterministic** JSON below was produced with no Studio key (same inputs as the five-row plan).
 
 ---
